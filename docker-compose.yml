@@ -1,0 +1,24 @@
+version: '3.5'
+
+services:
+    database:
+        image: mariadb:10.2
+        environment:
+            MYSQL_ROOT_PASSWORD: 'admin'
+            MYSQL_DATABASE: 'app'
+            MYSQL_USER: 'admin'
+            MYSQL_PASSWORD: 'admin'
+    app:
+        build:
+            context: ./
+            dockerfile: ./Dockerfile
+        volumes:
+            - ./app/:/app
+        ports:
+            - 80:80
+        environment:
+            DATABASE_URL: mysql://root:admin@database/app
+            SECRET_KEY: secret
+            DEBUG: 'True'
+        depends_on:
+            - database
