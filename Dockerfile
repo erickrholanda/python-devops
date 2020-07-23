@@ -14,15 +14,20 @@ RUN apt-get -y update
 
 RUN apt-get -y install nginx
 
-RUN ln -sf /dev/stdout /var/log/nginx/access.log \
-	&& ln -sf /dev/stderr /var/log/nginx/error.log
+RUN ln -sf /dev/stdout /var/log/nginx/access.log
 
+RUN ln -sf /dev/stderr /var/log/nginx/error.log
 
 RUN pip install -r /app/requirements.txt
 
+RUN apt-get -y install openssh-server \
+     && echo "root:Docker!" | chpasswd
+
+COPY ./docker/app/sshd_config /etc/ssh/
+
 COPY ./docker/app/default.conf /etc/nginx/sites-available/default
 
-EXPOSE 80 443
+EXPOSE 80 443 2222 8000
 
 COPY ./docker/app/entrypoint.sh /usr/local/bin/
 

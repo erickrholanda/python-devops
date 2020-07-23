@@ -8,6 +8,8 @@ if test ! -f "/app/manage.py"; then
 fi
 
 if test -f "/app/manage.py"; then
+    /usr/sbin/sshd
+
     /app/manage.py migrate
 
     /app/manage.py collectstatic --no-input
