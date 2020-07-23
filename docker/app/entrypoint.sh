@@ -1,11 +1,17 @@
 #!/bin/bash
 
-python -V
+APP_NAME=$APP_NAME
 
-# /app/manage.py migrate
+if test ! -f "/app/manage.py"; then
+    django-admin startproject $APP_NAME .
+fi
 
-# /app/manage.py collectstatic --no-input
+if test -f "/app/manage.py"; then
+    /app/manage.py migrate
 
-service nginx start
+    /app/manage.py collectstatic --no-input
 
-# gunicorn --reload --workers 3 --bind 0.0.0.0:8000 gratuidade.wsgi:application
+    service nginx start
+
+    gunicorn --reload --workers 3 --bind 0.0.0.0:8000 $APP_NAME.wsgi:application
+fi;

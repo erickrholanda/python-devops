@@ -18,6 +18,7 @@ services:
         ports:
             - 80:80
         environment:
+            APP_NAME: website
             DATABASE_URL: mysql://root:admin@database/app
             SECRET_KEY: secret
             DEBUG: 'True'

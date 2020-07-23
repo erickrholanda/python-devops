@@ -1,5 +1,7 @@
 FROM python:3.8.2
 
+ENV APP_NAME "site"
+
 RUN pip install --upgrade pip
 
 RUN mkdir /app
@@ -24,4 +26,4 @@ RUN chmod +x /usr/local/bin/entrypoint.sh
 
 ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
 
-CMD [ "gunicorn", "--reload", "--workers 3", "--bind 0.0.0.0:8000", "gratuidade.wsgi:application" ]
+CMD [ "gunicorn", "--reload", "--workers 3", "--bind 0.0.0.0:8000", "$APP_NAME.wsgi:application" ]
