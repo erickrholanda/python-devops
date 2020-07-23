@@ -1,6 +1,6 @@
 FROM python:3.8.2
 
-ENV APP_NAME "site"
+ENV APP_NAME "website"
 
 RUN pip install --upgrade pip
 
