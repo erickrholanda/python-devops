@@ -1,6 +1,7 @@
 #!/bin/bash
-
 APP_NAME=$APP_NAME
+echo "Iniciando $APP_NAME ..."
+sleep 2
 
 if test ! -f "/app/manage.py"; then
     django-admin startproject $APP_NAME .
