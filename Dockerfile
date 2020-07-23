@@ -8,10 +8,6 @@ WORKDIR /app
 
 ADD ./app/ /app/
 
-COPY ./docker/app/entrypoint.sh /usr/local/bin/
-
-RUN chmod +x /usr/local/bin/entrypoint.sh
-
 RUN apt-get -y update
 
 RUN apt-get -y install nginx
@@ -21,6 +17,10 @@ RUN pip install -r /app/requirements.txt
 COPY ./docker/app/default.conf /etc/nginx/sites-available/default
 
 EXPOSE 80
+
+COPY ./docker/app/entrypoint.sh /usr/local/bin/
+
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
 ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
 

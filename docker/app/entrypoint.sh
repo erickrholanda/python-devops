@@ -2,9 +2,9 @@
 
 python -V
 
-/app/manage.py migrate
+# /app/manage.py migrate
 
-/app/manage.py collectstatic --no-input
+# /app/manage.py collectstatic --no-input
 
 service nginx start
 
